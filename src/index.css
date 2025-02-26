@@ -1,0 +1,307 @@
+@import url("https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --pink-primary: #ffe4e1;
+  --pink-secondary: #ffc0cb;
+  --pink-accent: #ffb6c1;
+  --pink-background: #fff0f5;
+  --pink-interactive: #ff69b4;
+  --blob-size: 28px;
+  --blob-opacity: 0.2;
+  --blob-blur: 3px;
+  --edge-blob-width: 40px;
+  --edge-blob-height: 24px;
+}
+
+.cursive {
+  font-family: "Parisienne", cursive;
+}
+
+.serif {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  animation: sparkle 2s linear infinite;
+  color: var(--pink-interactive);
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.heart-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-heart 2s ease-in-out infinite;
+  stroke: theme("colors.purple.600");
+}
+
+@keyframes draw-heart {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  40% {
+    stroke-dashoffset: 0;
+  }
+  85% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -1000;
+  }
+}
+
+.envelope {
+  transition: transform 0.5s ease;
+  background-color: var(--pink-primary);
+  border: 2px solid var(--pink-secondary);
+}
+
+.envelope:hover {
+  transform: scale(1.05);
+  background-color: var(--pink-secondary);
+}
+
+.letter {
+  transition: all 0.5s ease;
+}
+
+.letter.open {
+  transform: translateY(-50px) rotateX(180deg);
+}
+
+.trait-card {
+  position: relative;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.trait-card::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(
+    45deg,
+    var(--pink-primary),
+    var(--pink-secondary),
+    var(--pink-accent)
+  );
+  border-radius: 1.5rem;
+  z-index: -2;
+  opacity: 0.9;
+  filter: blur(8px);
+  animation: blob-rotate 8s linear infinite;
+}
+
+.trait-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 1.2rem;
+  z-index: -1;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.trait-card:hover::after {
+  background: rgba(255, 255, 255, 0.98);
+  transform: translateZ(10px);
+}
+
+/* Corner Blobs */
+.corner-blob {
+  position: absolute;
+  width: var(--blob-size);
+  height: var(--blob-size);
+  opacity: var(--blob-opacity);
+  filter: blur(var(--blob-blur));
+  border-radius: 12px;
+  z-index: 1;
+  pointer-events: none;
+  transition: all 0.6s ease-in-out;
+}
+
+.corner-blob.top-left {
+  top: -5px;
+  left: -5px;
+  background: radial-gradient(
+    circle at 70% 70%,
+    var(--pink-primary) 0%,
+    var(--pink-secondary) 45%,
+    transparent 70%
+  );
+  transform: rotate(-45deg);
+}
+
+.corner-blob.top-right {
+  top: -5px;
+  right: -5px;
+  background: radial-gradient(
+    circle at 30% 70%,
+    var(--pink-accent) 0%,
+    var(--pink-secondary) 45%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+}
+
+.corner-blob.bottom-left {
+  bottom: -5px;
+  left: -5px;
+  background: radial-gradient(
+    circle at 70% 30%,
+    var(--pink-secondary) 0%,
+    var(--pink-accent) 45%,
+    transparent 70%
+  );
+  transform: rotate(-135deg);
+}
+
+.corner-blob.bottom-right {
+  bottom: -5px;
+  right: -5px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--pink-primary) 0%,
+    var(--pink-accent) 45%,
+    transparent 70%
+  );
+  transform: rotate(135deg);
+}
+
+/* Edge Blobs */
+.edge-blob {
+  position: absolute;
+  opacity: calc(var(--blob-opacity) * 0.8);
+  filter: blur(calc(var(--blob-blur) * 1.2));
+  z-index: 1;
+  pointer-events: none;
+  transition: all 0.6s ease-in-out;
+}
+
+.edge-blob.top-center {
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--edge-blob-width);
+  height: var(--edge-blob-height);
+  background: radial-gradient(
+    ellipse at center bottom,
+    var(--pink-secondary) 0%,
+    var(--pink-primary) 40%,
+    transparent 70%
+  );
+}
+
+.edge-blob.right-center {
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--edge-blob-height);
+  height: var(--edge-blob-width);
+  background: radial-gradient(
+    ellipse at center left,
+    var(--pink-accent) 0%,
+    var(--pink-secondary) 40%,
+    transparent 70%
+  );
+}
+
+.edge-blob.bottom-center {
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--edge-blob-width);
+  height: var(--edge-blob-height);
+  background: radial-gradient(
+    ellipse at center top,
+    var(--pink-primary) 0%,
+    var(--pink-accent) 40%,
+    transparent 70%
+  );
+}
+
+.edge-blob.left-center {
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--edge-blob-height);
+  height: var(--edge-blob-width);
+  background: radial-gradient(
+    ellipse at center right,
+    var(--pink-secondary) 0%,
+    var(--pink-primary) 40%,
+    transparent 70%
+  );
+}
+
+.trait-card:hover .corner-blob {
+  --blob-size: 32px;
+  --blob-opacity: 0.25;
+  --blob-blur: 4px;
+}
+
+.trait-card:hover .edge-blob {
+  --edge-blob-width: 44px;
+  --edge-blob-height: 26px;
+  --blob-opacity: 0.3;
+  --blob-blur: 5px;
+}
+
+@keyframes gradient-y {
+  0%,
+  100% {
+    background-size: 100% 100%;
+    background-position: center top;
+  }
+  50% {
+    background-size: 120% 120%;
+    background-position: center center;
+  }
+}
+
+/* Smooth scrolling for parallax effect */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom button styles */
+.btn-primary {
+  background-color: var(--pink-secondary);
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--pink-interactive);
+  color: white;
+}
+
+/* Section backgrounds */
+.section-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--pink-background),
+    var(--pink-primary)
+  );
+}
