@@ -1,0 +1,56 @@
+/* filepath: /c:/Users/Dell/Documents/CodeStuff/Projects/Birthday/project/src/components/PersonalitySection.css */
+.personality-section {
+  overflow: hidden;
+}
+
+.blank {
+  padding: 2rem;
+  text-align: center;
+}
+
+.horizontal {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pin-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.animation-wrap {
+  display: flex;
+  white-space: normal;
+}
+
+.item {
+  min-width: 300px;
+  min-height: 350px;
+  margin: 0 1.5rem;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.trait-card {
+  padding: 64px 18px;
+  backdrop-filter: blur(4px);
+  border-radius: 1rem;
+  transition: all 300ms;
+}
+
+.cursive {
+  font-family: "Cursive", sans-serif;
+}
+
+.serif {
+  font-family: "Serif", serif;
+}

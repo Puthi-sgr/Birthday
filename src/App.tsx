@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import useSound from "use-sound";
 import { motion, AnimatePresence } from "framer-motion";
 import { MusicControl } from "./components/MusicControl";
 import { HeroSection } from "./components/HeroSection";
 import { BeautySection } from "./components/BeautySection";
-import { PersonalitySection } from "./components/PersonalitySection";
+import { PersonalitySection } from "./components/Personality/PersonalitySection";
 import { AppearanceSection } from "./components/AppearanceSection";
 import { PoemSection } from "./components/PoemSection";
 import { EnvelopeSection } from "./components/Envelope/EnvelopeSection";
 import { useSparkles } from "./hooks/useSparkles";
-
-const birthdayMusic = "https://example.com/birthday-music.mp3";
+import birthdayMusic from "./audio/musicOOG.ogg";
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
+  setIsPlaying(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [play, { stop }] = useSound(birthdayMusic, { volume: 0.5 });
+  const [play, { stop }] = useSound(birthdayMusic, {
+    volume: 1,
+    html5: true, // Add this for better mobile compatibility
+    interrupt: true, // Prevents multiple instances from playing
+    onend: () => {
+      // Remove auto-play on end to comply with mobile policies
+      setIsPlaying(false);
+    },
+  });
 
   const [heroRef, heroInView] = useInView({ triggerOnce: true });
   const [beautyRef, beautyInView] = useInView({ triggerOnce: true });
-  const [personalityRef, personalityInView] = useInView({ triggerOnce: true });
   const [appearanceRef, appearanceInView] = useInView({ triggerOnce: true });
   const [poemRef, poemInView] = useInView({ triggerOnce: true });
 
@@ -32,14 +39,23 @@ function App() {
     }, 2000);
   }, []);
 
-  const toggleMusic = () => {
+  // Add touch event handler
+  const handleMusicToggle = () => {
     if (isPlaying) {
       stop();
+      setIsPlaying(false);
     } else {
-      play();
+      // Try-catch for better error handling
+      try {
+        play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.error("Failed to play audio:", error);
+        setIsPlaying(false);
+      }
     }
-    setIsPlaying(!isPlaying);
   };
+  const toggleMusic = handleMusicToggle;
 
   return (
     <>
@@ -86,10 +102,7 @@ function App() {
         <MusicControl isPlaying={isPlaying} onToggle={toggleMusic} />
         <HeroSection heroRef={heroRef} heroInView={heroInView} />
         <BeautySection beautyRef={beautyRef} beautyInView={beautyInView} />
-        <PersonalitySection
-          personalityRef={personalityRef}
-          personalityInView={personalityInView}
-        />
+        <PersonalitySection />
         <AppearanceSection
           appearanceRef={appearanceRef}
           appearanceInView={appearanceInView}

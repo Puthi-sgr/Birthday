@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Heart, Sparkles, Stars } from 'lucide-react';
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Heart, Sparkles, Stars } from "lucide-react";
 
 interface HeroSectionProps {
   heroRef: (node?: Element | null) => void;
@@ -21,22 +21,16 @@ export function HeroSection({ heroRef, heroInView }: HeroSectionProps) {
       className="min-h-screen relative flex items-center justify-center overflow-hidden px-4"
     >
       {/* Parallax Background */}
-      <motion.div 
-        style={{ y, scale }}
-        className="absolute inset-0 z-0"
-      >
+      <motion.div style={{ y, scale }} className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black/30 z-10" /> {/* Overlay */}
-        <div 
+        <div
           className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1920')] 
           bg-cover bg-center bg-no-repeat"
         />
       </motion.div>
-      
+
       {/* Floating decorative elements with adjusted z-index */}
-      <motion.div 
-        style={{ opacity }}
-        className="absolute inset-0 z-20"
-      >
+      <motion.div style={{ opacity }} className="absolute inset-0 z-20">
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -45,13 +39,13 @@ export function HeroSection({ heroRef, heroInView }: HeroSectionProps) {
           transition={{
             duration: 4,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
           className="absolute top-[20%] left-[10%] transform -translate-x-1/2 -translate-y-1/2"
         >
           <Heart className="w-8 h-8 md:w-12 md:h-12 text-pink-200 drop-shadow-lg" />
         </motion.div>
-        
+
         <motion.div
           animate={{
             y: [0, -10, 0],
@@ -60,13 +54,110 @@ export function HeroSection({ heroRef, heroInView }: HeroSectionProps) {
           transition={{
             duration: 3,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
           className="absolute top-[30%] right-[15%]"
         >
           <Sparkles className="w-8 h-8 md:w-10 md:h-10 text-yellow-200 drop-shadow-lg" />
         </motion.div>
-        
+        {/* New sparkles around profile */}
+        <motion.div
+          animate={{
+            y: [0, -8, 0],
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-[35%] left-[40%]"
+        >
+          <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-yellow-100 drop-shadow-lg" />
+        </motion.div>
+
+        <motion.div
+          animate={{
+            y: [0, 8, 0],
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
+            rotate: [0, -180, -360],
+          }}
+          transition={{
+            duration: 3.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-[35%] right-[40%]"
+        >
+          <Sparkles className="w-5 h-5 md:w-7 md:h-7 text-yellow-300 drop-shadow-lg" />
+        </motion.div>
+
+        <motion.div
+          animate={{
+            scale: [0, 1, 0],
+            rotate: [0, 180, 360],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-[45%] left-[30%]"
+        >
+          <Sparkles className="w-4 h-4 md:w-6 md:h-6 text-yellow-200 drop-shadow-lg" />
+        </motion.div>
+
+        <motion.div
+          animate={{
+            scale: [0, 1, 0],
+            rotate: [0, -180, -360],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 3.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-[45%] right-[30%]"
+        >
+          <Sparkles className="w-5 h-5 md:w-7 md:h-7 text-yellow-100 drop-shadow-lg" />
+        </motion.div>
+
+        <motion.div
+          animate={{
+            scale: [0, 1, 0],
+            rotate: [0, 360, 720],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 3.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-[40%] left-[35%]"
+        >
+          <Sparkles className="w-4 h-4 md:w-6 md:h-6 text-yellow-400 drop-shadow-lg" />
+        </motion.div>
+
+        <motion.div
+          animate={{
+            scale: [0, 1, 0],
+            rotate: [0, -360, -720],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 4.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-[40%] right-[35%]"
+        >
+          <Sparkles className="w-5 h-5 md:w-7 md:h-7 text-yellow-200 drop-shadow-lg" />
+        </motion.div>
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -75,7 +166,7 @@ export function HeroSection({ heroRef, heroInView }: HeroSectionProps) {
           transition={{
             duration: 3.5,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
           className="absolute bottom-[25%] left-[20%]"
         >
@@ -122,7 +213,7 @@ export function HeroSection({ heroRef, heroInView }: HeroSectionProps) {
               On this special day, let's celebrate the amazing person you are
             </p>
           </div>
-          
+
           {/* Decorative underline */}
           <motion.div
             initial={{ scaleX: 0 }}
@@ -142,7 +233,7 @@ export function HeroSection({ heroRef, heroInView }: HeroSectionProps) {
           delay: 1.5,
           duration: 2,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "easeInOut",
         }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white z-30"
       >
