@@ -14,7 +14,6 @@ import birthdayMusic from "./audio/musicOOG.ogg";
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
-  setIsPlaying(false);
   const [isLoading, setIsLoading] = useState(true);
   const [play, { stop }] = useSound(birthdayMusic, {
     volume: 1,
@@ -32,6 +31,11 @@ function App() {
   const [poemRef, poemInView] = useInView({ triggerOnce: true });
 
   useSparkles();
+
+  // Ensure music starts in a stopped state on mount
+  useEffect(() => {
+    setIsPlaying(false);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
